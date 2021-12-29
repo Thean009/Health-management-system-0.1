@@ -1,0 +1,161 @@
+# This is a Health Management System\
+
+def client_creator():
+    Name = input("Enter Client Name: ")
+    Age = input("Age: ")
+    Exercise = input("Exercise: ")
+    Diet = input("Diet: ")
+    Sleep = input("Sleep: ")
+    client_adder(Name, Age, Exercise, Diet, Sleep)
+    again_newinput()
+def client_adder(Name,Age,Exercise,Diet,Sleep):
+    str_name = "temp%client%library" + str(Name) + ".txt"
+    with open(str_name, "a+") as f:
+        f.write(Name+"\n")
+        f.write(Age+"\n")
+        f.write(Exercise+"\n")
+        f.write(Diet+"\n")
+        f.write(Sleep+"\n")
+
+def search_engine():
+    search = input("Enter the client's name you want to search: ")
+    search_str = str(search)
+    harry_get_date()
+    client_viewer(search_str)
+    again_search()
+    return search_str
+def client_viewer(a):
+    str_name = "temp%client%library" + str(a) + ".txt"
+    with open(str_name, "r") as f:
+        print("Name is " + f.readline())
+        print("Age is " + f.readline())
+        print("Exercise is "+ f.readline())
+        print("Diet is " + f.readline())
+        print("Sleep is " + f.readline())
+    print(harry_get_date())
+    again()
+
+def client_age_infoeditor(a):
+    str_name = "temp%client%library" + str(a) + ".txt"
+    with open(str_name, "r") as f:
+        print("Editing age of " + str(a))
+        line = f.readlines()
+        b = input("Age: ") + "\n"
+        line[1] = b
+
+    with open(str_name, "w") as f:
+        f.writelines(line)
+def client_exercise_infoeditor(a):
+    str_name = "temp%client%library" + str(a) + ".txt"
+    with open(str_name, "r") as f:
+        print("Editing exercise of " + str(a))
+        line = f.readlines()
+        b = input("Exercise: ") + "\n"
+        line[2] = b
+    with open(str_name, "w") as f:
+        f.writelines(line)
+def client_diet_infoeditor(a):
+    str_name = "temp%client%library" + str(a) + ".txt"
+    with open(str_name, "r") as f:
+        print("Editing diet of " + str(a))
+        line = f.readlines()
+        b = input("Diet: ") + "\n"
+        line[3] = b
+    with open(str_name, "w") as f:
+        f.writelines(line)
+def client_sleep_infoeditor(a):
+    str_name = "temp%client%library" + str(a) + ".txt"
+    with open(str_name, "r") as f:
+        print("Editing sleep of " + str(a))
+        line = f.readlines()
+        b = input("Sleep: ") + "\n"
+        line[4] = b
+
+    with open(str_name, "w") as f:
+        f.writelines(line)
+def editor():
+    search = input("Enter the client's name you want to Change: ")
+    search_str = str(search)
+    while(True):
+        a = input("Enter A for changing Age"
+                  "      E for changing Exercise"
+                  "\n      D for changing Diet"
+                  "      S for changing Sleep"
+                  "\n      C to Close"
+                  " -> ")
+        a1= str(a.upper())
+        if a1 == 'A':
+            client_age_infoeditor(search_str)
+        elif a1 == 'E':
+            client_exercise_infoeditor(search_str)
+        elif a1 == 'D':
+            client_diet_infoeditor(search_str)
+        elif a1 == 'S':
+            client_sleep_infoeditor(search_str)
+        elif a1 == 'C':
+            again()
+            break
+        else:
+            print("Enter valid input")
+
+def harry_get_date():
+    import datetime
+    return datetime.datetime.now()
+def again():
+    call_again = input('''
+    Do you want to use HMS again?
+    Type Y for Yes and N for NO"''')
+    if call_again == 'y' or call_again == 'Y':
+        health_management_system()
+    elif call_again == 'n' or call_again == 'N':
+        print("Thanks")
+    else:
+        again()
+def again_newinput():
+    call_again = input('''
+    Do you want to create another?
+    Type Y for Yes and N for NO"''')
+    if call_again == 'y' or call_again == 'Y':
+        client_creator()
+    elif call_again == 'n' or call_again == 'N':
+        health_management_system()
+    else:
+        again_newinput()
+def again_editor():
+    call_again = input('''
+    Do you want to edit another?
+    Type Y for Yes and N for NO"''')
+    if call_again == 'y' or call_again == 'Y':
+        editor()
+    elif call_again == 'n' or call_again == 'N':
+        health_management_system()
+    else:
+        again_editor()
+def again_search():
+    call_again = input('''
+    Do you want to use search again?
+    Type Y for Yes and N for NO"''')
+    if call_again == 'y' or call_again == 'Y':
+        search_engine()
+    elif call_again == 'n' or call_again == 'N':
+        health_management_system()
+    else:
+        again_search()
+
+
+def health_management_system():
+    print("\nWelcome to Health Management Software                                           beta 0.1")
+    decission = input("\nEnter \n'N' for entry\n'F' to find existing\n'E' for editing\n'C' to close\n -> ")
+    decission_cap = str(decission.upper())
+    if decission_cap == 'N':
+        client_creator()
+    elif decission_cap == 'F':
+        search_engine()
+    elif decission_cap == 'E':
+        editor()
+    elif decission_cap == 'C':
+        print("Thanks, Have a good day")
+    else:
+        print("Enter valid input")
+        again()
+health_management_system()
